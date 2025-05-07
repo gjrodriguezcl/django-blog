@@ -1,0 +1,104 @@
+# Aplicaciones Necesarias para Desarrollo
+1. Python
+2. Visual Studio Code, Paquetes a instalar:
+    - Python (Microsoft)
+    - Django (Baptiste Darthenay)
+    - Material Icon Themes (Phillipp Kief)
+3. Git 
+
+# Crear entorno virtual o Virtual Enviroment
+python -m venv env
+
+# Activar el entorno virtual
+source env/Scripts/activate
+
+# Instalar Framework Django en el proyecto
+pip install Django==5.0.4
+
+# Crear un proyecto de nombre "blog_enterprise" . (Raiz del proyecto)
+django-admin startproject blog_enterprise .
+# Recuerda configurar y almacenar la secret key en el archivo "settings.py"
+
+# Aplicar migraciones
+python manage.py migrate
+
+# Crear Super-Usuario
+python manage.py createsuperuser
+
+# Iniciar servidor Web
+python manage.py runserver
+
+# El manejador de Urls se encuentra en el archivo urls.py
+from . import views...  
+
+... path('', views.home, name='home')
+
+# y para una nueva vista, se debe crear el archivo views.py
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'home.html')
+
+# Se debe crear el archivo /templates/home.html
+
+# Agregar la ruta a TEMPLATES del archivo settings.py
+'DIRS': ['templates'],
+
+# Se debe crear la carpeta static dentro de la carpeta de la aplicacion (blog_enterprise)
+# y configurar su ruta dentro del fichero settings.py
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR /'static'
+STATICFILES = [
+    'blog_enterprise/static',
+]
+
+# Se debe agregar o invocar la funcion para poder cargar la carpeta Static en home.html
+{%  load static  %}
+
+
+# ¿Por qué parece enredado?
+# Separación estricta de responsabilidades:
+# Django fuerza a separar la lógica (vistas/models), la presentación (templates) y las URLs (routing). Esto es bueno para proyectos grandes, pero para una página simple parece excesivo.
+
+# Archivos iniciales:
+# Para una sola página web, normalmente necesitas modificar:
+
+# urls.py (para rutas).
+
+# views.py (para la lógica).
+
+# Un template (HTML en templates/).
+
+# models.py (si usas base de datos).
+
+# settings.py (configuraciones generales).
+
+# Posiblemente forms.py (si hay formularios).
+
+#Para editar la interfaz gráfica o los elementos gráficos, se debe usar el módulo Crispy Form
+pip install django-crispy-forms==2.0.0
+
+#Se configura el Crispy Forms en el archivo settings.py, agregando la siguiente línea en INSTALLED_APPS
+'crispy_forms',
+'crispy_bootstrap5',
+
+#... y agregando al final de settings.py, lo siguiente:
+CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+#luego, debe instalarse el Bootstrap5 para Crispy Forms:
+pip install crispy-bootstrap5
+
+#Se puede desplegar en la nube gratis en pythonanywere.com
+https://www.pythonanywhere.com/
+
+#Se debe prerarar los ficheros para subir a la nube con:
+pip freeze > requirements.txt
+
+#Luego ir a la pagina gitignore.io, escribir Django y luego crear; copiar el contenido y pegarlo en un archivo en la raiz llamado ".gitignore":
+https://www.toptal.com/developers/gitignore/
+
+#Eliminar la linea "db.sqlite3" y "media" del archivo ".gitignore"
+
+
